@@ -24,13 +24,12 @@ fastify.get("/photos", (request, reply) => {
 });
 
 fastify.get("/photos/:id", (request, reply) => {
-  fetch("https://jsonplaceholder.typicode.com/photos")
+  fetch("https://jsonplaceholder.typicode.com/photos" + id)
   .then((response) => response.json())
-  .then((json) => {console.log(json);
-
+  .then((photo) => {
     reply
     .code(200)
-    .header("Content-Type", "text/json; charset=utf-8")
+    .header("Content-Type", "application/json; charset=utf-8")
     .send({ error: "", statusCode: 200, photos: json});
   })
   .catch((error) => {
@@ -44,7 +43,7 @@ fastify.get("/photos/:id", (request, reply) => {
   reply
     .code(200)
     .header("Content-Type", "text/json; charset=utf-8")
-    .send({ error: "", statusCode: 200, photo: {json} });
+    .send({ error: "ERROR", statusCode: 404 });
 });
 
 // Start server and listen to requests using Fastify
